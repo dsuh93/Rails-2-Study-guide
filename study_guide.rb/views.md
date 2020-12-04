@@ -11,17 +11,17 @@
       render :index
     end
 ```
-``` RUBY
+``` Ruby
     # while in app/views/books/new.html.erb -->
     <h1>all the books!</h1>
     <ul>
-    
-    #  <%# @books.each do |book| %>
-    #    <%#= render book %>
-    #  <%# end %>
-
-      <%= render @books %> <--
-    </ul>
+    # you can either do 
+      <% @books.each do |book| %> <
+      >  <%= render book %> <
+    >  <% end %> <
+    # or
+    >  <%= render @books %> <--
+  >  </ul>
 ```
 
 + Implement an HTML ERB form for creating a 'new' resource that will persist to a given database.
