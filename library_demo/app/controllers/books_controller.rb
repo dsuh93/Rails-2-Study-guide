@@ -1,8 +1,7 @@
 class BooksController < ApplicationController
 
   def index
-    @books = Book.all
-    render :index
+    
   end
 
   def show
@@ -16,20 +15,11 @@ class BooksController < ApplicationController
   end
 
   def new
-    @book = Book.new
-    render :new
+    
   end
 
   def create
-    @book = Book.new(book_params)
-
-    if @book.save
-      # show user the book show page
-      redirect_to book_url(@book)
-    else
-      # show user the new book form
-      render :new
-    end
+    
   end
 
   def edit

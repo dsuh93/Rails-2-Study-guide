@@ -37,11 +37,11 @@
     end
 ---------------------------------------------------
     def create
-    @book = Book.new(book_params)
+    @book = Book.new(book_params) <-- #this argument is our books_params private helper method
 
       if @book.save
         # show user the book show page
-        redirect_to book_url(@book)
+        redirect_to book_url(@book) <-- #this is our helper url for POST #show
       else
         # show user the new book form
         render :new
@@ -56,6 +56,7 @@
 ```C#
     #but in the case that we need to make just the form in new.html.erb
     <form action="<%= books_url %>" method="post">
+      #for and id attributes need to be the same for each label:input pair
       <label for="title">Title</label>
       <input id="title" type="text" name="book[title]">
 
