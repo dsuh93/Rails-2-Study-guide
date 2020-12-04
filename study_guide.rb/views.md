@@ -82,6 +82,81 @@
 
 + Implement an HTML ERB form for updating a user's existing resource that will persist to a given database.
 
+  - Concept: Using `edit` and `update` methods in `Controller` to make changes to the attributes of our database.
+
+```Ruby
+#example from library_demo
+    #while in app/controllers/books_controller.rb
+    def edit
+      @book = Book.find_by(id: params[:id])
+      render :edit
+    end
+---------------------------------------
+    def update
+      @book = Book.find_by(id: params[:id])
+
+      if @book.update_attributes(book_params)
+        redirecto_to book_url(@book)
+      else
+        render :edit
+      end
+    end
+```
+```C#
+    #while in app/views/books/edit.html.erb
+    #correct use of partials
+    #render takes two arguments: partial name and options hash
+    <h1>Edit book in Library!</h1>
+    <%= render 'form', book: @book, action: :edit %>
+```
+```C#
+    #for making edit.html.erb long form
+    <h1>Edit book!</h1>
+
+    <form action="<%= book_url(@book) %>" method="POST">
+    #this overrides form submission method to PATCH, because form element element itself only accepts GET and POST verbs
+    #this hidden input is so we can make a PATCH request, and the name is _method because it tells Rails that THIS is the actual method we want to use
+      <input type="hidden" name="_method" value="PATCH">
+    
+      <label for="title">Title</label>
+      <input id="title" type="text" name="book[title]" value="<%= @book.title %>">
+
+      #apply the same format for value for other inputs
+
+      <label for="category">Category</label>
+      <select id="category" name="book[category]">
+        <option disabled>-- Please Select --</option>
+        <option value="Fiction" <%= @book.category == "Fiction" ? "selected" : "" %> >Fiction</option>
+      
+      #do the same ternary logic for other select options
+
+      <label for="description">Description</label>
+      <textarea name="book[discription]">
+        <%= @book.description %>
+      </textarea>
+```
+```C#
+#because we want to keep our code DRY, we use partials, so we'll create a new file called _form.html.erb, this will be called in the real edit.html.erb above^^
+#taken from library_demo
+    <% if edit %> <-- short for <% if action == :edit %>
+      <% action = book_url(post) %> <-- action here refers to action_url
+      <% button_text = "Edit this post" %>
+    <% else %>
+      <% action = books_url %>
+      <% button_text = "Make a post" %>
+    <% end %>
+
+    <form action=" <%= action %> " method="POST">
+      <% if edit %>
+        <input type="hidden" name="_method" value="PATCH">
+      <% end %>
+
+    #at the end
+
+    <input type="submit" value="Update book!">
+    #everything else in the _form.html.erb should be the same as in the longform above^
+```
+
 + Display model validation errors and custom error messages to a user on unsuccessful form submission
 
 + Create a form with radio buttons that will allow a user to choose from multiple values.
@@ -89,6 +164,19 @@
 + Demonstrate how to use a hidden field to overwrite a form’s method allowing that form to update or delete a resource.
 
 
-``` Ruby
+```C#
+#taken from lecture
+    #in show.html.erb
+    <h1>One single post</h1>
+
+    <li>
+      <%= @post.body %> - <%= @post.author.username %>
+      <a href=" <%= edit_post_url(@post) %>">Edit Post</a>
+
+      <form action=" <%= post_url(@post.id) %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="Delete this post">
+      </form>
+    </li>
 
 ```
