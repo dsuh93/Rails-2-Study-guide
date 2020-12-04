@@ -11,21 +11,20 @@
       render :index
     end
 ```
-``` HTML
-    <!-- while in app/views/books/new.html.erb -->
+``` RUBY
+    # while in app/views/books/new.html.erb -->
     <h1>all the books!</h1>
     <ul>
-    <!--
-      <%# @books.each do |book| %>
-        <%#= render book %>
-      <%# end %>
-     -->
+    
+    #  <%# @books.each do |book| %>
+    #    <%#= render book %>
+    #  <%# end %>
 
       <%= render @books %> <--
     </ul>
 ```
 
-+ Implement an HTML ERB form for creating a new resource that will persist to a given database.
++ Implement an HTML ERB form for creating a 'new' resource that will persist to a given database.
 
     - Concept: We want to create an `HTML form` layout inside one of our `ERB` files that will be used through our `new` action in our `Controller`.
 
@@ -39,6 +38,7 @@
 ```
 ```Ruby
     #while in app/views/books/_form.html.erb
+
 ```
 
 + Implement an HTML ERB form for updating a user's existing resource that will persist to a given database.
