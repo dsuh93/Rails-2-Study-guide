@@ -140,10 +140,10 @@
 #taken from library_demo
     <% if edit %> <-- short for <% if action == :edit %>
       <% action = book_url(post) %> <-- action here refers to action_url
-      <% button_text = "Edit this post" %>
+      <% button_text = "Edit this book" %>
     <% else %>
       <% action = books_url %>
-      <% button_text = "Make a post" %>
+      <% button_text = "Add a Book" %>
     <% end %>
 
     <form action=" <%= action %> " method="POST">
@@ -151,9 +151,19 @@
         <input type="hidden" name="_method" value="PATCH">
       <% end %>
 
+    #our labels and inputs will be the same from our longform edit.html.erb, except we replace the 'values' in our inputs with:
+      <input id="title" type="text" name="book[title]" value=" <%= book.title %> ">
+
+    #in our category
+
+    <label for="category">Category</label>
+      <select id="category" name="book[category]">
+        <option disabled <%= book.category ? "" : "selected" %> >-- Please Select --</option>
+        <option value="Fiction" <%= book.category == "Fiction" ? "selected" : "" %> >Fiction</option>
+
     #at the end
 
-    <input type="submit" value="Update book!">
+    <input type="submit" value="<%= (action == :edit) ? 'update book' : 'add book' %>">
     #everything else in the _form.html.erb should be the same as in the longform above^
 ```
 
@@ -163,9 +173,10 @@
 
 + Demonstrate how to use a hidden field to overwrite a form’s method allowing that form to update or delete a resource.
 
+    - Concept: to render the `delete` action from `Controller` using our views `show` ERB. 
 
 ```C#
-#taken from lecture
+#taken from W6D5 lecture
     #in show.html.erb
     <h1>One single post</h1>
 
