@@ -11,7 +11,7 @@
       render :index
     end
 ```
-``` Java
+``` C#
     # while in app/views/books/new.html.erb -->
     <h1>all the books!</h1>
     <ul>
