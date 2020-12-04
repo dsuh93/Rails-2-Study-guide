@@ -58,6 +58,7 @@
     <form action="<%= books_url %>" method="post">
       #for and id attributes need to be the same for each label:input pair
       <label for="title">Title</label>
+      #name will have our strong params from book_params helper method
       <input id="title" type="text" name="book[title]">
 
       #add break lines and other labels and inputs for other columns accordingly
