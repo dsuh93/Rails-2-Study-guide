@@ -89,15 +89,14 @@
 ### Given a code snippet of an incoming HTTP Request, identify what will be accessible in the `params` hash based on the request.
 
 ### Identify and explain the why we use strong parameters in Rails Controllers. (2 main reasons)
-- If we try passing params from a client's request into the application controller action without any restrictions, then it puts our data at risk to unwanted changes.
-- We use `strong params` to restrict which attributes a user can assign. The `#params` hash has some built-in methods to passlist certain attributes for mass assignment:
+1. We use `strong params` to restrict which attributes a user can assign. The `#params` hash has some built-in methods to passlist certain attributes for mass assignment, and which also avoid additional submitted paramters:
 ```Ruby
     def strong_params
         params.require(:top_level_key).permit(:list, :of, :attributes)
         #the permitted attributes are the columns from the relative table
     end
 ```
-- We also use strong params to keep our code DRY.
+2.  We also use `strong params` to specifically require certain values to be present in the parameters of a request for that controller. 
 
 ### Identify how the Rails Router recognizes which controller to dispatch a request to. (2 things)
 1. The HTTP verb: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`
