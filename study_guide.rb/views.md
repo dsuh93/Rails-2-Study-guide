@@ -169,8 +169,11 @@
 
 + Display model validation errors and custom error messages to a user on unsuccessful form submission
 
-  - Concept: 
-  
+  - Concept: Data saved to the database need to be validated. Model level validations are the most common, but `controller level validations` can be created as well.
+  - Data stored in `flash` will be available to the `next controller action` and can be used when `redirecting`. Data stored in `flash.now` will only be available in the `view currently being rendered` by the `render` method.
+  - One common way to render errors is to store them in `flash[:errors]` after running validation, then displaying them on the page by iterating through each of the errors displaying each of them. `flash` can be used as a hash and `:errors` is just an arbitrary key we have chosen.
+  - By following the construct of always storing `obj.errors.full_messages` in `flash[:errors]` a partial can be rendered with the flash errors on each of the forms.
+
 ```Ruby
 #taken from cats project cats_controller.rb in the create action
     def create
@@ -190,7 +193,7 @@
       if @cat.update_attributes(cat_params)
         redirect_to cat_url(@cat)
       else
-        flash.now[:errors] = @cat.errors.full_messages
+        flash.now[:errors] = @cat.errors.full_messages #this stores any validation errors in the flash[:errors] array
         render :edit
       end
     end
@@ -204,8 +207,8 @@
     <% end %>
     </ul>
 <% end %>
+#when the new or edit pages are rendered, a list of all existing errors will also be rendered
 #the above partial is used in the edit.html.erb and new.html.erb file like so:
-  <h1>Edit My Cat</h1>
   <%= render 'shared/errors' %>
   <%= render 'form', cat: @cat %>
 ```
