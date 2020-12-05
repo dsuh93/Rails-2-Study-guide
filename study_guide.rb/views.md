@@ -3,6 +3,7 @@
 ### Demonstrate how to pass instance variables from controllers to HTML views for that controller
 
   - Concept: In the `Controller`, you must create `instance variables` in your action methods in order to utilize them in your `View` file for that specific action.
+  - Like methods, you can also pass local variables into `partials`. This reduces duplication between new and edit pages, and keeps the content distinct.
 
 ``` Ruby
 #example from library_demo
@@ -23,11 +24,18 @@
     # or
       <%= render @books %> <--
     </ul>
+
+    #when passing local variables to partials
+    <!--app/views/user/new.html.erb -->
+    <%= render "form", user: @user, action: :new %> <-- replace :new with :edit in the views for edit
+
+    <!-- app/views/user/_form.html.erb -->
+    <% action_url = (action == :new) ? users_url : user_url(user) %> <-- here we are using the local variable user that was defined in the views for new 
 ```
 
 ### Implement an HTML ERB form for creating a 'new' resource that will persist to a given database.
 
-    - Concept: We want to create an `HTML form` layout inside one of our `ERB` files that will be used through our `create` and `new` action in our `Controller`.
+  - Concept: We want to create an `HTML form` layout inside one of our `ERB` files that will be used through our `create` and `new` action in our `Controller`.
 
 ``` Ruby
 #example from library_demo
@@ -216,7 +224,7 @@
 
 ### Create a form with radio buttons that will allow a user to choose from multiple values.
 
-    - Concept: know how to write out in `HTML ERB` the template for `radio buttons` that will also persist the data when necessary.
+  -  Concept: know how to write out in `HTML ERB` the template for `radio buttons` that will also persist the data when necessary.
   
 ```C#
 #taken from cats project solution in the _form.html.erb
@@ -238,7 +246,7 @@
 
 ### Demonstrate how to use a hidden field to overwrite a form’s method allowing that form to update or delete a resource.
 
-    - Concept: to render the `delete` action from `Controller` using our views `show` ERB. 
+  -  Concept: to render the `delete` action from `Controller` using our views `show` ERB. 
 
 ```C#
 #taken from W6D5 lecture
