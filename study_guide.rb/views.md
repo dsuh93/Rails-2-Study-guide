@@ -25,7 +25,7 @@
     </ul>
 ```
 
-+ Implement an HTML ERB form for creating a 'new' resource that will persist to a given database.
+### Implement an HTML ERB form for creating a 'new' resource that will persist to a given database.
 
     - Concept: We want to create an `HTML form` layout inside one of our `ERB` files that will be used through our `create` and `new` action in our `Controller`.
 
@@ -81,7 +81,7 @@
 
 ```
 
-+ Implement an HTML ERB form for updating a user's existing resource that will persist to a given database.
+### Implement an HTML ERB form for updating a user's existing resource that will persist to a given database.
 
   - Concept: Using `edit` and `update` methods in `Controller` to make changes to the attributes of our database.
 
@@ -168,7 +168,7 @@
     #everything else in the _form.html.erb should be the same as in the longform above^
 ```
 
-+ Display model validation errors and custom error messages to a user on unsuccessful form submission
+### Display model validation errors and custom error messages to a user on unsuccessful form submission
 
   - Concept: Data saved to the database need to be validated. Model level validations are the most common, but `controller level validations` can be created as well.
   - Data stored in `flash` will be available to the `next controller action` and can be used when `redirecting`. Data stored in `flash.now` will only be available in the `view currently being rendered` by the `render` method.
@@ -214,7 +214,7 @@
   <%= render 'form', cat: @cat %>
 ```
 
-+ Create a form with radio buttons that will allow a user to choose from multiple values.
+### Create a form with radio buttons that will allow a user to choose from multiple values.
 
     - Concept: know how to write out in `HTML ERB` the template for `radio buttons` that will also persist the data when necessary.
   
@@ -236,7 +236,7 @@
     <label for="cat_sex_female">Female</label>
 ```
 
-+ Demonstrate how to use a hidden field to overwrite a form’s method allowing that form to update or delete a resource.
+### Demonstrate how to use a hidden field to overwrite a form’s method allowing that form to update or delete a resource.
 
     - Concept: to render the `delete` action from `Controller` using our views `show` ERB. 
 
