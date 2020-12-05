@@ -169,7 +169,68 @@
 
 + Display model validation errors and custom error messages to a user on unsuccessful form submission
 
+  - Concept: 
+  
+```Ruby
+#taken from cats project cats_controller.rb in the create action
+    def create
+      @cat = Cat.new(cat_params)
+
+      if @cat.save
+        redirect_to cat_url(@cat)
+      else
+        flash.now[:errors] = @cat.errors.full_messages
+        render :new
+      end
+    end
+
+    #as well as in the update action
+    def update
+      @cat = Cat.find(params[:id])
+      if @cat.update_attributes(cat_params)
+        redirect_to cat_url(@cat)
+      else
+        flash.now[:errors] = @cat.errors.full_messages
+        render :edit
+      end
+    end
+```
+```C#
+#taken from cats project solution from the views/shared/_errors.html.erb file
+  <% if flash[:errors] %>
+    <ul>
+    <% flash[:errors].each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+    </ul>
+<% end %>
+#the above partial is used in the edit.html.erb and new.html.erb file like so:
+  <h1>Edit My Cat</h1>
+  <%= render 'shared/errors' %>
+  <%= render 'form', cat: @cat %>
+```
+
 + Create a form with radio buttons that will allow a user to choose from multiple values.
+
+    - Concept: know how to write out in `HTML ERB` the template for `radio buttons` that will also persist the data when necessary.
+  
+```C#
+#taken from cats project solution in the _form.html.erb
+    <input
+      type="radio"
+      name="cat[sex]"
+      value="M"
+      id="cat_sex_male"
+      <%= cat.sex == "M" ? "checked" : "" %>>
+    <label for="cat_sex_male">Male</label>
+    <input
+      type="radio"
+      name="cat[sex]"
+      value="F"
+      id="cat_sex_female"
+      <%= cat.sex == "F" ? "checked" : "" %>>
+    <label for="cat_sex_female">Female</label>
+```
 
 + Demonstrate how to use a hidden field to overwrite a form’s method allowing that form to update or delete a resource.
 
