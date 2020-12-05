@@ -1,16 +1,19 @@
 # Rails Olympics Study Guide
 
-- This study guide is more concept heavy, will try to keep it as short as possible!
+- This study guide is more concept heavy, get ready for a lot of reading!!
 
 ## ActiveRecord
 ### Identify when validations are run in Rails
-- Validations always exist in either the database or the model.
-- So, when you're trying to POST or PATCH, then validations will run because controller actions will be hitting the models and database which will filter the request to make sure data being processed is valid. 
+- Validations always exist in either the `database` or the `model`.
+- So, when you're trying to `POST` or `PATCH`, then validations will run because controller actions will be hitting the models and database which will filter the request to make sure data being processed is valid. 
 
 ### Identify why `dependent: destroy` is used in Rails
 - If a class has a `has_many` association with `dependent: :destroy`, if that class instance is destroyed, then the association that has the `dependent: :destroy` is also destroyed in the process.
 
 ### Given a code snippet with an ActiveRecord query inside, identify on which line the query fetches information from the database.
+```Ruby
+
+```
 
 ### Identify the argument that is passed to the ActiveRecord `joins` method.
 - This will ALWAYS be an association from the model that you are querying from.
@@ -42,10 +45,27 @@
 
 ## Rails Controllers
 ### Given a code snipped that demonstrates a controller double render error, identify the problem with the controller.
+- In the below example, we'll see that the create action in the VotersController will always render :new no matter what, so if the creation of the @voter instance variable was a success, `#create` will redirect_to voter_url(@voter) which will also render another request and still try and render :new which is not what we want the client to see.
+```Ruby
+    class VotersController < ApplicationController
+
+        def create
+            @voter = Voter.new(voter_params)
+
+            if @voter.save
+                redirect_to voter_url(@voter)
+            end
+
+            render :new
+        end
+    end
+```
 
 ### Identify how long an instance of a controller exists.
-- When your application receives a request, the router will determine the controller and action to run. The router then instantiates an instance of the controller and call the method named by the action.
-- Once the action is complete, or redirects to another route, then the instance is destroyed.
+- When your application receives a request, the router will determine the controller and action to run. The router then instantiates an `instance of the controller` and call the method named by the action.
+- The controller instance then takes over the request processing, runs the given method, and renders a response or issues a redirect.
+- After issuing the response, the request is over and the connection between client-and-server is closed. The controller instance is discarded.
+    - in particular, setting instance variables in the controller *doesn't affect processing of future requests*. State is saved either in the database (server-side) or the cookie (client-side). Since instance variables will be lost after the response is issued, you can't use instance-variable data stored from previous requests.
 
 ### List the three things available in the `params` object in rails.
 - You'll probably want to access data sent in by the user or other parameters in your controller actions, the three kinds are:
@@ -68,7 +88,7 @@
 
 ### Given a code snippet of an incoming HTTP Request, identify what will be accessible in the `params` hash based on the request.
 
-### Identify and explain the why we use strong parameters in Rails Controllers.
+### Identify and explain the why we use strong parameters in Rails Controllers. (2 main reasons)
 - If we try passing params from a client's request into the application controller action without any restrictions, then it puts our data at risk to unwanted changes.
 - We use `strong params` to restrict which attributes a user can assign. The `#params` hash has some built-in methods to passlist certain attributes for mass assignment:
 ```Ruby
@@ -77,9 +97,11 @@
         #the permitted attributes are the columns from the relative table
     end
 ```
+- We also use strong params to keep our code DRY.
 
-### Identify how the Rails Router recognizes which controller to dispatch a request to.
-
+### Identify how the Rails Router recognizes which controller to dispatch a request to. (2 things)
+1. The HTTP verb: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`
+2.  The request URL path
 
 ## CSS
 ### Given a pre-filled HTML skeleton, write CSS selectors to add specific styles to spcific html tags, classes, and ids.
