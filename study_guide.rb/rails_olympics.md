@@ -22,29 +22,29 @@
 
 
 ## Metaprogramming
-- Given a snippet using `.define_method` to create methods dynamically- select the methods that were created.
-- Given a `define_method` block written on a class definition. Identify the scope within the `define_method` block when called by a new instance.
+### Given a snippet using `.define_method` to create methods dynamically, select the methods that were created.
+### Given a `define_method` block written on a class definition. Identify the scope within the `define_method` block when called by a new instance.
 
 
 ## Rails Controllers
-- Given a code snipped that demonstrates a controller double render error, identify the problem with the controller.
-- Identify how long an instance of a controller exists.
-- List the three things available in the `params` object in rails.
-- Match the seven conventional Rails Controller actions (`new`, `edit`, `destroy`, `show`, `index`, `create`, `update`) to their HTTP verbs.
-- Given a code snippet of an incoming HTTP Request, indentify what will be accessible in the `params` hash based on the request.
-- Identify and explain the why we use strong parameters in Rails Controllers.
-- Identify how the Rails Router recognizes which controller to dispatch a request to.
+### Given a code snipped that demonstrates a controller double render error, identify the problem with the controller.
+### Identify how long an instance of a controller exists.
+### List the three things available in the `params` object in rails.
+### Match the seven conventional Rails Controller actions (`new`, `edit`, `destroy`, `show`, `index`, `create`, `update`) to their HTTP verbs.
+### Given a code snippet of an incoming HTTP Request, indentify what will be accessible in the `params` hash based on the request.
+### Identify and explain the why we use strong parameters in Rails Controllers.
+### Identify how the Rails Router recognizes which controller to dispatch a request to.
 
 
 ## CSS
-- Given a pre-filled HTML skeleton, write CSS selectors to add specific styles to spcific html tags, classes, and ids.
-- Given an HTML skeleton, utilize `display: flex`, `justify-content`, and the `align-items` properties to align an element and it's children in the middle of the page.
-- Given an HTML skeleton, utilize the `display: flex` and `justify-content` properties to align the parent element on opposite sides of the page from it's children.
+### Given a pre-filled HTML skeleton, write CSS selectors to add specific styles to spcific html tags, classes, and ids.
+### Given an HTML skeleton, utilize `display: flex`, `justify-content`, and the `align-items` properties to align an element and it's children in the middle of the page.
+### Given an HTML skeleton, utilize the `display: flex` and `justify-content` properties to align the parent element on opposite sides of the page from it's children.
 
 ## Rails Overall
-- Given a basic rails project with pre-written views, implement a Rails application using a written description of various resources.
-    - This includes writing migrations as well as building models, controllers, routes.
-        - Giben an HTML template- implement controllers that will `render` the specified template.
+### Given a basic rails project with pre-written views, implement a Rails application using a written description of various resources.
+- This includes writing migrations as well as building models, controllers, routes.
+    - Given an HTML template- implement controllers that will `render` the specified template.
         - Write Validations that utilize the scope of another model to guarantee uniqueness.
         - Implement controllers that will `redirect_to` the specified URL.
     - Demonstrate how to write `has_many`, `has_many thorugh` and `belongs_to` associations
