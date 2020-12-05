@@ -1,5 +1,5 @@
 # Views - AAO Study Guide bullet examples
-+ Demonstrate how to pass instance variables from controllers to HTML views for that controller
+## Demonstrate how to pass instance variables from controllers to HTML views for that controller
 
     - Concept: In the `Controller`, you must create `instance variables` in your action methods in order to utilize them in your `View` file for that specific action.
 
