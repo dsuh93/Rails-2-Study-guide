@@ -53,15 +53,8 @@
     - Sample request: `GET /clients?status=activated`
     2. The request body. Any request may contain a body, but in practice only `POST` and `PUT/PATCH` do. This info usually comes from an HTML form that's been filled in by the user. Rails actually *mixes* the `query string` and `request body` parameters together in the `#params` method.
         - when the user submits a form with new attributes for a model, these are stored as a `nested hash` in the `params` hash. Using a nested hash to create or update a model is called "mass-assignment". (ex. seeds file) We want to be careful however and use [`strong params`](https://github.com/dsuh93/Rails-2-Study-guide/blob/main/study_guide.rb/rails_olympics.md#identify-and-explain-the-why-we-use-strong-parameters-in-rails-controllers).
-```JSON
-    POST /clients
-    { post: {
-        title: 'CATS',
-        body: 'meow meow meow'
-        }
-    }
-```
-3. Controller member routes like `show`, `update`, and `delete` all use the same path: `/clients/:id`. The controller needs to know the `id` so it can decide which `Client` record to show/update/delete. To tell the controller what object we're talking about, the router will set `params[:id]` to the matched id from the requested path. This is sometimes called a route fragment parameter. 
+    Sample request body in JSON: `POST /clients { post: { title: 'CATS', body: 'meow meow meow'} }`
+    3. Controller member routes like `show`, `update`, and `delete` all use the same path: `/clients/:id`. The controller needs to know the `id` so it can decide which `Client` record to show/update/delete. To tell the controller what object we're talking about, the router will set `params[:id]` to the matched id from the requested path. This is sometimes called a route fragment parameter. 
 
 ### Match the seven conventional Rails Controller actions (`new`, `edit`, `destroy`, `show`, `index`, `create`, `update`) to their HTTP verbs.
 - GET = `index`
