@@ -13,11 +13,20 @@
 
 ### Given a code snippet with an ActiveRecord query inside, identify on which line the query fetches information from the database.
 ```Ruby
-
+class User < ApplicationRecord
+    def includes_post_comment_counts
+        posts = self.posts.includes(:comments) #<-- ActiveRecord query
+        post_comment_counts = {}
+        posts.each do |post|
+            post_comment_counts[post] = post.comments.length #<-- This is where the query actually fetches information from the database
+        end
+        post_comment_counts
+    end
+end
 ```
 
 ### Identify the argument that is passed to the ActiveRecord `joins` method.
-- This will ALWAYS be an association from the model that you are querying from.
+- This will ALWAYS be an `association` from the model that you are querying from.
 
 ### Identify when to use the ActiveRecord `.includes` method to avoid N+1 queries.
 - Remember that N+1 queries occur when you're fetching a relation, followed by fetching an association on each item in the original relation.
@@ -105,6 +114,13 @@ end
 - DELETE = `destroy`
 
 ### Given a code snippet of an incoming HTTP Request, identify what will be accessible in the `params` hash based on the request.
+```Ruby
+    #These are the only examples I could think of
+    #GET "/cat_toys/new?cat_id=1"
+    => params[:cat_id]
+    #GET "/cats/2"
+    => params[:id]
+```
 
 ### Identify and explain the why we use strong parameters in Rails Controllers. (2 main reasons)
 1. We use `strong params` to restrict which attributes a user can assign. The `#params` hash has some built-in methods to passlist certain attributes for mass assignment, and which also avoid additional submitted paramters:
