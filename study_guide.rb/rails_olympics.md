@@ -116,17 +116,28 @@
         - ![typical box model](https://assets.aaonline.io/fullstack/html-css/assets/box_model.png?raw=true)
     
 ### Given an HTML skeleton, utilize `display: flex`, `justify-content`, and the `align-items` properties to align an element and it's children in the middle of the page.
-- Here are some examples:
+- To make an element into a `Flex Container` we give it the `display: flex;` property. This attribute makes all child elements into Flex Items. The size of each flex item is then calculated to always fit within the container. The default direction of these elements is horizontal but can be easily changed with `flex-direction`.
+- `justify-content` helps distribute the remaining space when items are either inflexible or have reached their max size. We can make all the flex items aligned to the beginning of the container, the end of the container, the center, etc.
+    - ![justify-content-example](https://css-tricks.com/wp-content/uploads/2013/04/justify-content.svg)
+- `align-items` is very similar to `justify-content` except it positions items along the cross-axis (perpindicular to the main axis).
+    - ![align-items-example](https://css-tricks.com/wp-content/uploads/2014/05/align-items.svg)
 ```CSS
-    * {
+    element {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: space-between;
+        align-items: center;
     }
 ```
+- **Highly-recommend** practicing [flexbox-froggy](http://flexboxfroggy.com/)
 
 ### Given an HTML skeleton, utilize the `display: flex` and `justify-content` properties to align the parent element on opposite sides of the page from it's children.
-
+```CSS
+    element {
+        display: flex;
+        justify-content: space-between;
+    }
+```
 
 ## Rails Overall
 ### Given a basic rails project with pre-written views, implement a Rails application using a written description of various resources.
