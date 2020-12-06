@@ -8,7 +8,8 @@
 - So, when you're trying to `POST` or `PATCH`, then validations will run because controller actions will be hitting the models and database which will filter the request to make sure data being processed is valid. 
 
 ### Identify why `dependent: destroy` is used in Rails
-- If a class has a `has_many` association with `dependent: :destroy`, if that class instance is destroyed, then the association that has the `dependent: :destroy` is also destroyed in the process.
+- If a class has a `has_many` association with `dependent: :destroy`, if that class instance is destroyed, then any instances that `belongs_to` the destroyed class will aslo be destroyed.
+- We do this to prevent instanced from being *widowed*. When a record is widowed, its foreign key becomes invalid. This is an error. Using `dependent: :destroy` should help clean up child records so that records don't become widowed.
 
 ### Given a code snippet with an ActiveRecord query inside, identify on which line the query fetches information from the database.
 ```Ruby
@@ -74,7 +75,8 @@
     2. The request body. Any request may contain a body, but in practice only `POST` and `PUT/PATCH` do. This info usually comes from an HTML form that's been filled in by the user. Rails actually *mixes* the `query string` and `request body` parameters together in the `#params` method.
         - when the user submits a form with new attributes for a model, these are stored as a `nested hash` in the `params` hash. Using a nested hash to create or update a model is called "mass-assignment". (ex. seeds file) We want to be careful however and use [`strong params`](https://github.com/dsuh93/Rails-2-Study-guide/blob/main/study_guide.rb/rails_olympics.md#identify-and-explain-the-why-we-use-strong-parameters-in-rails-controllers).
     Sample request body in JSON: `POST /clients { post: { title: 'CATS', body: 'meow meow meow'} }`
-    3. Controller member routes like `show`, `update`, and `delete` all use the same path: `/clients/:id`. The controller needs to know the `id` so it can decide which `Client` record to show/update/delete. To tell the controller what object we're talking about, the router will set `params[:id]` to the matched id from the requested path. This is sometimes called a route fragment parameter. 
+    3. Controller member routes like `show`, `update`, and `delete` all use the same path: `/clients/:id`. The controller needs to know the `id` so it can decide which `Client` record to show/update/delete. To tell the controller what object we're talking about, the router will set `params[:id]` to the matched id from the requested path. This is sometimes called a route fragment parameter.
+
 
 ### Match the seven conventional Rails Controller actions (`new`, `edit`, `destroy`, `show`, `index`, `create`, `update`) to their HTTP verbs.
 - GET = `index`
