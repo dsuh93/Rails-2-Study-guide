@@ -105,9 +105,24 @@
 2.  The request URL path
 
 ## CSS
-### Given a pre-filled HTML skeleton, write CSS selectors to add specific styles to spcific html tags, classes, and ids.
-
+### Given a pre-filled HTML skeleton, write CSS selectors to add specific styles to specific html tags, classes, and ids.
+- Quick review of CSS selectors for html tags, classes, and ids:
+    - HTML tags: simply write the tag name you want to style.
+    - Classes: To select a tag's class attribute, denote like so
+        - `#value of the selected class`
+    - Ids: To select a tag's id attribute, denote like so
+        - `.value of the selected id`
+    - For styles, keep in mind the position of `padding`, `border`, and `margin`
+        - ![typical box model](https://assets.aaonline.io/fullstack/html-css/assets/box_model.png?raw=true)
 ### Given an HTML skeleton, utilize `display: flex`, `justify-content`, and the `align-items` properties to align an element and it's children in the middle of the page.
+- Here are some examples:
+```CSS
+    * {
+        display: flex;
+        justify-content: center;
+        align-items: space-between;
+    }
+```
 
 ### Given an HTML skeleton, utilize the `display: flex` and `justify-content` properties to align the parent element on opposite sides of the page from it's children.
 
