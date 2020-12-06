@@ -113,7 +113,7 @@
     - Ids: To select a tag's id attribute, denote like so
         - `.value of the selected id`
     - For styles, keep in mind the position of `padding`, `border`, and `margin`
-        - ![typical box model](https://assets.aaonline.io/fullstack/html-css/assets/box_model.png?raw=true)
+            ![typical box model](https://assets.aaonline.io/fullstack/html-css/assets/box_model.png?raw=true)
 ### Given an HTML skeleton, utilize `display: flex`, `justify-content`, and the `align-items` properties to align an element and it's children in the middle of the page.
 - Here are some examples:
 ```CSS
