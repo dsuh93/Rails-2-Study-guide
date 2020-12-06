@@ -24,6 +24,8 @@
 
 ## HTTP
 ### Given a list of common HTTP status codes, identify what each code represents when sent as a response.
+- Just going to share this link since it probably covers the most frequent and I don't want to accidentally leave anything out
+- ![list-of-http-errors](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
 
 
 ## Views
