@@ -20,6 +20,20 @@
 - This will ALWAYS be an association from the model that you are querying from.
 
 ### Identify when to use the ActiveRecord `.includes` method to avoid N+1 queries.
+- Remember that N+1 queries occur when you're fetching a relation, followed by fetching an association on each item in the original relation.
+- To solve the N+1 problem, use `.includes` to include the `association` you're trying to fetch on the original relation.
+```Ruby
+class User < ApplicationRecord
+    def includes_post_comment_counts
+        posts = self.posts.includes(:comments) #<-- here we are including the association for comments to retrieve all the relevant comments via eager loading
+        post_comment_counts = {}
+        posts.each do |post|
+            post_comment_counts[post] = post.comments.length
+        end
+        post_comment_counts
+    end
+end
+```
 
 
 ## HTTP
