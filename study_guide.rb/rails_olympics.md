@@ -131,7 +131,7 @@
         align-items: center;
     }
 ```
-- **Highly-recommend** practicing [flexbox-froggy](http://flexboxfroggy.com/)
+- **HIGHLY-RECOMMEND** practicing [flexbox-froggy](http://flexboxfroggy.com/)
 
 ### Given an HTML skeleton, utilize the `display: flex` and `justify-content` properties to align the parent element on opposite sides of the page from it's children.
 ```CSS
