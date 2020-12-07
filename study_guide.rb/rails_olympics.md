@@ -81,8 +81,34 @@ end
 
 ## Metaprogramming
 ### Given a snippet using `.define_method` to create methods dynamically, select the methods that were created.
+```Ruby
+class Dog
+    def self.makes_sound(name)
+        define_method(name) {puts "#{name}!"}
+    end
+    makes_sound(:woof)
+    makes_sound(:bark)
+    makes_sound(:grr)
+end
+
+#methods created were #woof, #bark, and #grr
+```
 
 ### Given a `define_method` block written on a class definition. Identify the scope within the `define_method` block when called by a new instance.
+```Ruby
+class Corgi
+    define_method(:output_name) do
+        puts self
+    end
+end
+
+corgi1 = Corgi.new
+corgi1.output_name # ???
+```
+- What is printed out when we run the above code?
+    - The instance of the new Corgi <-- This is the correct answer!
+    - The Corgi class
+
 
 
 ## Rails Controllers
