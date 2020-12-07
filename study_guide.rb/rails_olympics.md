@@ -53,14 +53,30 @@ end
 
 ## Views
 ### Identify what happens to instance variables in a view after the response has been served.
+- instance variables reset until a new request is made which will allow them to have the relative values of the new request.
 
 ### Given the HTTP request verb and a URL, list in order the steps that would occur from the router receiving that request to the response being displayed to the user.
+- ![request-cycle](https://raw.githubusercontent.com/appacademy/2020-10-26-NYC-Lecture-Notes/master/w6d5-views/rails_cycle.jpeg?token=AQICARFQX2QNYY6YTGGEFAS722UXA)
 
 ### Shown a code snippet using non-printing ERB tags identify why the values will not be reflected in the HTML.
+- To reflect code in HTML, need the <%= %> ERB tags (honestly not quite sure how else to answer this question)
 
 ### Given the routes of an application and a form with an empty action and method. Fill in the correct action and method for editing the existing resource.
+- resources :cats, only [:new, :create, :edit, :destroy]
+```HTML
+    for :new <form action="<%= cats_url %>" method="post">
+    for :create <form action="<%= cats_url %>" method="post"> 
+    for :edit <form action="<%= cat_url(@cat) %>" method="post">
+    for :destroy <form action="<%= cat_url(@cat) %>" method="post">
+```
 
 ### Identify how ERB is used in Rails View's HTML tmeplates.
+```HTML
+    <%= > These tags are used to display code in our views
+    <% > These tags are used for code to workout our logic
+    <%# > These tags are used for code we want to comment out,
+        rather than using <!-- --> HTML comments.
+```
 
 
 ## Metaprogramming
@@ -174,9 +190,43 @@ end
 ## Rails Overall
 ### Given a basic rails project with pre-written views, implement a Rails application using a written description of various resources.
 - This includes writing migrations as well as building models, controllers, routes.
+- I suggest practicing the cats project!
 ### Given an HTML template- implement controllers that will `render` the specified template.
 - Write Validations that utilize the scope of another model to guarantee uniqueness.
+```Ruby
+    validates :attribute, uniqueness: {scope: :another_models_attribute}
+```
 - Implement controllers that will `redirect_to` the specified URL.
+    - The main actions that redirect are `:create`, `:update`, and `:destroy`. `redirect_to` will always redirect using a url helper.
+```Ruby
+#example
+def create
+    @cat = Cat.new(cat_params)
+
+    if @cat.save
+        redirect_to cat_url(@cat)
+    else
+        flash.now[:errors] = @cat.errors.full_messages
+        render :new
+    end
+end
+```
 ### Demonstrate how to write `has_many`, `has_many through` and `belongs_to` associations
-- Write an `optional` association to avoid restrictions on required presence. 
+- Write an `optional` association to avoid restrictions on required presence.
+```Ruby
+    #example with practice olympic rails
+    #user has many gardens and has many flowers in all gardens
+    has_many :gardens,
+        foreign_key: :garden_owner_id,
+        class_name: :Garden
+
+    has_many :flowers_in_all_gardens,
+        through: :gardens,
+        source: :flowers
+
+    #gardens belongs to garden owner
+    belongs_to :garden_owner,
+        foreign_key: :garden_owner_id,
+        class_name: :User
+```
 
