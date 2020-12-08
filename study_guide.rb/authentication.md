@@ -49,9 +49,26 @@ class User < ApplicationRecord
 
   private
 
-  
+  def ensure_session_token
+    self.session_token ||= self.class.generate_session_token
+  end
 end
 ```
+- Authentication Flow (suggest reading this side-by-side with UsersController, User model, SessionController, and ApplicationController)
+1. Client wants to add a cat.
+2. Client is redirected to session/new to sign up for an account.Server: "Filter chain halted as :ensure_logged_in rendered or redirected".
+3. `Application Controller#ensure_logged_in` was the first thing to get hit, since the cats controller had `before_action :ensure_logged_in` `:ensure_logged_in`
+  - checks if user is `logged_in?`
+  - if not, `redirect_to new_session_url`
+4. When someone signs up with the username and password they send, the server started a POST request for /users, processed by `UsersController#create`. Keep in mind the request included an `authenticity token` (see _form.html.erb for hidden input). The authenticity token had to have passed first before we hit the `UsersController`.
+5. UsersController#create will instantiate a user instance object with `user = User.new(user_params)`, the params being `:username` and `:password`, but `:password` has a few extra steps in the User model.
+  - `User#password=` sets up our `password_digest` attribute via `BCrypt`, which will enter db once we save the user.
+6. Before we save though, we have `after_initialize :ensure_session_token` in the User model. So, we hit `User#ensure_session_token` which then hits `User::generate_session_token` because the user instance doesn't exist in the db yet. With our new `session_token`, we now go to save in `UsersController#create`.
+7. BUT before we finally save, we need to `validate` everything.
+  - Checks for presence of all our attributes (`username`, `password_digest`, `session_token`).
+  - Runs the `attr_reader :password` method, which reads the `@password` instance variable from `User#password=`.
+  - validates if the length has a minimum of 6, and allows_nil in case we're editing user, and since password isn't saved to the db, we want nil to be acceptable.
+8. 
 
 
 - Conditionally show views to a user based on their logged in status.
