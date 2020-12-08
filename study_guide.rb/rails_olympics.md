@@ -183,9 +183,9 @@ corgi1.output_name # ???
 - Quick review of CSS selectors for html tags, classes, and ids:
     - HTML tags: simply write the tag name you want to style.
     - Classes: To select a tag's class attribute, denote like so
-        - `#value of the selected class`
+        - `.value of the selected class`
     - Ids: To select a tag's id attribute, denote like so
-        - `.value of the selected id`
+        - `#value of the selected id`
     - For styles, keep in mind the position of `padding`, `border`, and `margin`
         - ![typical box model](https://assets.aaonline.io/fullstack/html-css/assets/box_model.png?raw=true)
     

@@ -35,6 +35,15 @@ class User < ApplicationRecord
     user
   end
 
+  def reset_session_token!
+  # remember to generate AND save session_token to db.
+  # this won't work if you don't save to db
+    self.update!(session_token: self.class.generate_session_token)
+    # update is an ActiveRecrod model method, takes in any key/val pairs you want to change
+    #return the new token for convenience
+    self.session_token
+  end
+
   def is_password?(password)
     # password_digest is just a string
     # coverts it to a BCrypt::Password object so we can call is_password? on it
@@ -68,7 +77,8 @@ end
   - Checks for presence of all our attributes (`username`, `password_digest`, `session_token`).
   - Runs the `attr_reader :password` method, which reads the `@password` instance variable from `User#password=`.
   - validates if the length has a minimum of 6, and allows_nil in case we're editing user, and since password isn't saved to the db, we want nil to be acceptable.
-8. 
+8. If our user saves successfully, we will set `session[:session_token]` to `@user.session_token` (which is the same as being logged in) then redirect_to cats_url BUT if we didn't save successfully, we render `UsersController#new` (with flash.now).
+  - the `:session_token` attribute in the `session` cookie will become equal to the value in the `@user.session_token` column OR will equal a new session_token via `User#reset_session_token!`.
 
 
 - Conditionally show views to a user based on their logged in status.
