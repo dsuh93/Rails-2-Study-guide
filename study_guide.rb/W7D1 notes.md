@@ -161,7 +161,7 @@ class User < ApplicationRecord
 
     def password=(password)
         @password = password
-        self.password_digest = BCrpt::Password.create(password)
+        self.password_digest = BCrypt::Password.create(password)
         # 'create' takes a plaintext password, hashes and salts it, and spits out a digest
     end
 
@@ -178,7 +178,7 @@ class User < ApplicationRecord
         # password_digest is just a string
         # convert it into a BCrypt::Password object so that we can call #is_password? on it
         bcrypt_password = BCrypt::Password.new(self.password_digest) # just turns it into a Password object, doesn't hash it again
-        bcrypt_password.is_password?(plain_text_password) # this is_password? is different method entirely - instance method on a BCrypt Password instance that lets us check if a plaintext string matches that digest
+        bcrypt_password.is_password?(password) # this is_password? is different method entirely - instance method on a BCrypt Password instance that lets us check if a plaintext string matches that digest
     end
 
     private
@@ -187,7 +187,7 @@ class User < ApplicationRecord
         # this will run whenever we instantiate a User object
         # that could happen because we're creating a new record,
         # or because we pulled one out of the db
-        # that's why we use conidtional assignment
+        # that's why we use conditional assignment
         self.session_token ||= self.class.generate_session_token
     end
 
@@ -225,7 +225,7 @@ end
 3. G: `self.generate_sessiontoken` (class method)
 4. V: validations
 5. A: `attr_reader: password`, `after_initialize`
-6. P: `password-`
+6. P: `password=`
 7. E: `ensure_session_token`
 8. R: `reset_session_token!`
 
@@ -263,7 +263,7 @@ end
 
     def create
         # find a user by their username and password
-        user = User.find_by_crednetials(
+        user = User.find_by_credentials(
             params[:user][:username],
             params[:user][:password]
         )
@@ -277,7 +277,7 @@ end
             redirect_to users_url
         else
             flash.now[:errors] = ['Invalid credentials']
-            render: new
+            render :new
         end
     end
 
@@ -343,7 +343,7 @@ resources :users, only: [:new, :create]
 resource :session, only: [:new, :create, :destroy]
 
 ```
-### Applicatino Controller
+### Application Controller
 - CELLL
 1. C: `current_user`
 2. E: `ensure_logged_in`
