@@ -63,6 +63,40 @@ class User < ApplicationRecord
   end
 end
 ```
+### ApplicationController
+1. C: `current_user`
+2. E: `ensure_logged_in`
+3. L: `login(user)`
+4. L: `logged_in?`
+5. L: `logout`
+**DON'T FORGET HELPER METHODS**
+```Ruby
+class ApplicationController < ActionController::Base
+  helper_method :current_user, :logged_in?
+
+  def current_user
+    @current_user ||= User.find_by(session_token: session[:session_token])
+  end
+
+  def login(user)
+    session[:session_token] = user.reset_session_token!
+  end
+
+  def logout
+    current_user.reset_session_token!
+    session[:session_token] = nil
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  private
+  def ensure_logged_in
+    redirect_to new_session_url unless logged_in?
+  end
+end
+```
 - Authentication Flow (suggest reading this side-by-side with UsersController, User model, SessionController, and ApplicationController)
 1. Client wants to add a cat.
 2. Client is redirected to session/new to sign up for an account.Server: "Filter chain halted as :ensure_logged_in rendered or redirected".
