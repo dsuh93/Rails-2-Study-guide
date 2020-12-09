@@ -105,7 +105,7 @@
       @book = Book.find_by(id: params[:id])
 
       if @book.update_attributes(book_params)
-        redirecto_to book_url(@book)
+        redirect_to book_url(@book)
       else
         render :edit
       end
